@@ -17,6 +17,10 @@ const messageRouter = require("./routes/messageRouter");
 
 const app = express();
 
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 let sessionSecret = process.env.SESSION_SECRET;
 if (!sessionSecret && process.env.NODE_ENV === "production") {
   throw new Error("SESSION_SECRET must be set in the environment");
