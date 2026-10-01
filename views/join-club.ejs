@@ -1,0 +1,14 @@
+<%- include("partials/header", { pageTitle: "Join the club" }) %>
+<section class="form-page">
+  <p class="eyebrow">Members only</p>
+  <h1>Join the club</h1>
+  <p class="form-intro">Enter the club passcode to become a member.</p>
+  <% if (error) { %><p class="error-list" role="alert"><%= error %></p><% } %>
+  <form class="form-stack" action="/join-club" method="post" autocomplete="off">
+    <label>Club passcode
+      <input name="password" type="password" autocomplete="off" value="" readonly data-empty-until-focus required>
+    </label>
+    <button class="button" type="submit">Join club</button>
+  </form>
+</section>
+<%- include("partials/footer") %>

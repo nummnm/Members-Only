@@ -1,0 +1,19 @@
+<%- include("partials/header", { pageTitle: message.title }) %>
+<article class="message-detail">
+  <a class="text-link" href="/">&larr; All messages</a>
+  <p class="eyebrow">Message</p>
+  <h1><%= message.title %></h1>
+  <% if (canViewAuthors) { %>
+    <p class="message-meta message-detail-meta">
+      <span><%= message.first_name %> <%= message.last_name %></span>
+      <time datetime="<%= new Date(message.created_at).toISOString() %>"><%= new Date(message.created_at).toLocaleString() %></time>
+    </p>
+  <% } %>
+  <p class="message-full-text"><%= message.text %></p>
+  <% if (user && user.is_admin) { %>
+    <form action="/messages/<%= message.id %>/delete" method="post">
+      <button class="button button-danger" type="submit">Delete message</button>
+    </form>
+  <% } %>
+</article>
+<%- include("partials/footer") %>

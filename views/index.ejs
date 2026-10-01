@@ -1,0 +1,39 @@
+<%- include("partials/header", { pageTitle: "Messages" }) %>
+<section class="board-heading">
+  <div>
+    <p class="eyebrow">The noticeboard</p>
+    <h1>Messages</h1>
+  </div>
+  <% if (user) { %>
+    <a class="button" href="/messages/new">Write a message</a>
+  <% } %>
+</section>
+<% if (!canViewAuthors) { %>
+  <p class="privacy-note">Authors and post dates are visible to members.</p>
+<% } %>
+<section class="message-list" aria-label="Messages">
+  <% if (messages.length === 0) { %>
+    <p class="empty-state">No messages yet.</p>
+  <% } %>
+  <% messages.forEach((message) => { %>
+    <article class="message-entry">
+      <div class="message-content">
+        <h2><a class="message-title-link" href="/messages/<%= message.id %>"><%= message.title %></a></h2>
+        <p class="message-preview"><%= message.text %></p>
+        <a class="message-open" href="/messages/<%= message.id %>">Open message</a>
+        <% if (canViewAuthors) { %>
+          <p class="message-meta">
+            <span><%= message.first_name %> <%= message.last_name %></span>
+            <time datetime="<%= new Date(message.created_at).toISOString() %>"><%= new Date(message.created_at).toLocaleString() %></time>
+          </p>
+        <% } %>
+      </div>
+      <% if (user && user.is_admin) { %>
+        <form action="/messages/<%= message.id %>/delete" method="post">
+          <button class="button button-danger" type="submit" aria-label="Delete <%= message.title %>">Delete</button>
+        </form>
+      <% } %>
+    </article>
+  <% }) %>
+</section>
+<%- include("partials/footer") %>

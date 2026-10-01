@@ -1,0 +1,30 @@
+<%- include("partials/header", { pageTitle: "Create account" }) %>
+<section class="form-page">
+  <p class="eyebrow">Membership begins here</p>
+  <h1>Create your account</h1>
+  <form class="form-stack" action="/signup" method="post" autocomplete="off">
+    <% if (errors && errors.length) { %>
+      <div class="error-list" role="alert">
+        <% errors.forEach((error) => { %><p><%= error.msg %></p><% }) %>
+      </div>
+    <% } %>
+    <label>First name
+      <input name="firstName" autocomplete="given-name" required maxlength="80" value="<%= formData.firstName || '' %>">
+    </label>
+    <label>Last name
+      <input name="lastName" autocomplete="family-name" required maxlength="80" value="<%= formData.lastName || '' %>">
+    </label>
+    <label>Username or email
+      <input name="username" autocomplete="off" required maxlength="254" value="<%= formData.username || '' %>">
+    </label>
+    <label>Password
+      <input name="password" type="password" autocomplete="off" value="" readonly data-empty-until-focus required minlength="8">
+    </label>
+    <label>Confirm password
+      <input name="confirmPassword" type="password" autocomplete="off" value="" readonly data-empty-until-focus required>
+    </label>
+    <button class="button" type="submit">Create account</button>
+  </form>
+  <p class="form-note">Already registered? <a href="/login">Log in</a>.</p>
+</section>
+<%- include("partials/footer") %>

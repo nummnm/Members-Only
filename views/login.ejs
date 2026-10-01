@@ -1,0 +1,17 @@
+<%- include("partials/header", { pageTitle: "Log in" }) %>
+<section class="form-page">
+  <p class="eyebrow">Welcome back</p>
+  <h1>Log in</h1>
+  <% if (error) { %><p class="error-list" role="alert">Username or password is incorrect.</p><% } %>
+  <form class="form-stack" action="/login" method="post" autocomplete="off">
+    <label>Username
+      <input name="username" autocomplete="off" value="" required>
+    </label>
+    <label>Password
+      <input name="password" type="password" autocomplete="off" value="" readonly data-empty-until-focus required>
+    </label>
+    <button class="button" type="submit">Log in</button>
+  </form>
+  <p class="form-note">New here? <a href="/signup">Create an account</a>.</p>
+</section>
+<%- include("partials/footer") %>

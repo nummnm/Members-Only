@@ -1,0 +1,71 @@
+<%- include("partials/header", { pageTitle: "Profile" }) %>
+<section class="profile-page">
+  <div class="profile-heading">
+    <div class="profile-identity">
+      <p class="eyebrow">Your profile</p>
+      <h1><%= user.first_name %> <%= user.last_name %></h1>
+      <p class="profile-username"><%= user.username %></p>
+    </div>
+    <% if (user.profile_icon) { %>
+      <img class="profile-avatar profile-avatar-large" src="<%= user.profile_icon %>" alt="<%= user.first_name %>'s profile icon">
+    <% } else { %>
+      <span class="profile-avatar profile-avatar-large" aria-hidden="true"><%= user.first_name.charAt(0).toUpperCase() %><%= user.last_name.charAt(0).toUpperCase() %></span>
+    <% } %>
+  </div>
+
+  <% if (message) { %><p class="success-note" role="status"><%= message %></p><% } %>
+  <% if (error) { %><p class="error-list" role="alert"><%= error %></p><% } %>
+
+  <section class="profile-section" aria-labelledby="status-heading">
+    <h2 id="status-heading">Account status</h2>
+    <dl class="status-list">
+      <div><dt>Club membership</dt><dd><%= user.membership_status || user.is_admin ? "Member" : "Not a member" %></dd></div>
+      <div><dt>Administrator</dt><dd><%= user.is_admin ? "Yes" : "No" %></dd></div>
+    </dl>
+  </section>
+
+  <section class="profile-section" aria-labelledby="icon-heading">
+    <h2 id="icon-heading">Profile icon</h2>
+    <form id="profile-icon-form" class="form-stack profile-icon-form" action="/profile/avatar" method="post" enctype="multipart/form-data">
+      <p class="form-note">PNG, JPEG, or WebP, up to 2 MB.</p>
+      <div class="file-picker-row">
+        <label class="button button-secondary file-picker-button" for="profile-icon">Choose profile picture</label>
+        <span id="profile-icon-status" class="file-picker-status" role="status" aria-live="polite">No picture selected</span>
+      </div>
+      <input class="file-picker-input" id="profile-icon" name="profileIcon" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="profile-icon-status" required>
+      <button class="button" type="submit" disabled>Upload profile picture</button>
+    </form>
+    <% if (user.profile_icon) { %>
+      <form class="profile-remove-icon" action="/profile/avatar/remove" method="post">
+        <button class="button button-secondary" type="submit">Remove profile picture</button>
+      </form>
+    <% } %>
+  </section>
+
+  <section class="profile-section" aria-labelledby="account-actions-heading">
+    <h2 id="account-actions-heading">Account actions</h2>
+    <div class="profile-actions">
+      <% if (user.membership_status) { %>
+        <form action="/profile/leave-club" method="post">
+          <button class="button button-secondary" type="submit">Leave the club</button>
+        </form>
+      <% } %>
+      <% if (user.is_admin) { %>
+        <form action="/profile/remove-admin" method="post">
+          <button class="button button-secondary" type="submit">Remove admin access</button>
+        </form>
+      <% } %>
+      <form action="/logout" method="post">
+        <button class="button button-secondary" type="submit">Log out</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="profile-section danger-zone" aria-labelledby="delete-heading">
+    <p>Deleting your account will not delete your messages.</p>
+    <form action="/profile/delete" method="post">
+      <button class="button button-danger" type="submit">Delete my account</button>
+    </form>
+  </section>
+</section>
+<%- include("partials/footer") %>

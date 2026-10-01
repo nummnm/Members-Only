@@ -1,0 +1,14 @@
+<%- include("partials/header", { pageTitle: "Admin access" }) %>
+<section class="form-page">
+  <p class="eyebrow">Administrator access</p>
+  <h1>Become an admin</h1>
+  <p class="form-intro">Enter the administrator passcode to enable message moderation.</p>
+  <% if (error) { %><p class="error-list" role="alert"><%= error %></p><% } %>
+  <form class="form-stack" action="/join-admin" method="post" autocomplete="off">
+    <label>Admin passcode
+      <input name="password" type="password" autocomplete="off" value="" readonly data-empty-until-focus required>
+    </label>
+    <button class="button" type="submit">Enable admin access</button>
+  </form>
+</section>
+<%- include("partials/footer") %>

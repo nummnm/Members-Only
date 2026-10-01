@@ -1,0 +1,81 @@
+.form-page {
+  width: min(100%, 460px);
+  margin: 0 auto;
+}
+
+.form-page-wide {
+  width: min(100%, 640px);
+}
+
+.form-page h1 {
+  margin-bottom: 22px;
+}
+
+.form-intro,
+.form-note {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.form-stack {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.form-stack label {
+  display: grid;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form-stack input,
+.form-stack textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #aeb9b3;
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+}
+
+.form-stack input:focus,
+.form-stack textarea:focus {
+  border-color: var(--green);
+  outline: 3px solid rgba(23, 107, 88, 0.16);
+}
+
+.form-stack textarea {
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.error-list {
+  padding: 12px 16px;
+  border-left: 3px solid var(--coral);
+  background: #fbefec;
+  color: #7f3021;
+  font-size: 14px;
+}
+
+.error-list p {
+  margin: 0;
+}
+
+.error-list p + p {
+  margin-top: 6px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.text-link {
+  color: var(--muted);
+}
